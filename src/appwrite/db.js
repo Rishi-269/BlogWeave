@@ -27,7 +27,7 @@ export class DBService{
                 }
             )
         } catch (error) {
-            console.log("Appwrite serive :: createPost :: error", error);
+            console.error("DBService :: createPost :: ", error);
         }
     }
 
@@ -45,7 +45,7 @@ export class DBService{
                 }
             )
         } catch(error){
-            console.log("Appwrite service :: updatePost :: error", error);
+            console.error("DBService :: updatePost :: ", error);
         }
     }
 
@@ -58,7 +58,7 @@ export class DBService{
             )
             return true;
         } catch(error){
-            console.log("Appwrite service :: deletePost :: error", error);
+            console.error("DBService :: deletePost :: ", error);
             return false;
         }
     }
@@ -71,7 +71,7 @@ export class DBService{
                 slug
             )
         } catch(error){
-            console.log("Appwrite service :: getPost :: error", error);
+            console.error("DBService :: getPost :: ", error);
             return false;
         }
     }
@@ -84,10 +84,12 @@ export class DBService{
                 queries
             )
         } catch(error){
-            console.log("Appwrite service :: getPosts :: error", error);
+            console.error("DBService :: getPosts :: ", error);
             return false;
         }
     }
+
+    // bucket/storage
 
     async uploadFile(file){
         try{
@@ -97,20 +99,20 @@ export class DBService{
                 file
             )
         } catch(error){
-            console.log("Appwrite service :: uploadFile :: error", error);
+            console.error("DBService :: uploadFile :: ", error);
             return false;
         }
     }
 
     async deleteFile(fileId){
         try{
-            await this.storage.createFile(
+            await this.storage.deleteFile(
                 conf.bucketId,
                 fileId 
             );
             return true;
         } catch(error){
-            console.log("Appwrite service :: deleteFile :: error", error);
+            console.error("DBService :: deleteFile :: ", error);
             return false;
         }
     }

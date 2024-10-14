@@ -4,12 +4,13 @@ import dbService from "../appwrite/db";
 
 function Posts() {
     const [posts, setPosts] = useState([])
-    useEffect(() => {}, [])
-    dbService.getPosts().then((posts) => {
-        if (posts) {
-            setPosts(posts.documents)
-        }
-    })
+    useEffect(() => {
+        dbService.getPosts().then((posts) => {
+            if (posts) {
+                setPosts(posts.documents)
+            }
+        })
+    }, [])
   return (
     <div className='w-full py-8'>
         <Container>
