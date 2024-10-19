@@ -25,13 +25,17 @@ function App() {
 
   return loading ? (null) : (
     <div className='flex flex-wrap content-between w-full min-h-screen bg-color2'>
-      <div className='w-full block'>
-        <Header/>
-        <main>
-          <Outlet/>
-        </main>
-        <Footer/>
-      </div>
+      <header className='w-full'>
+        <Header />
+      </header>
+
+      <main className='flex-1'>
+        <Outlet />
+      </main>
+
+      <footer className='w-full'>
+        <Footer />
+      </footer>
     </div>
   )
 }

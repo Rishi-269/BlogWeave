@@ -30,7 +30,7 @@ function LoginComp() {
     <div
     className='flex items-center justify-center w-full'
     >
-        <div className={`mx-auto w-full max-w-lg bg-color1 rounded-xl p-10 border-4 border-color3`}>
+        <div className={`mx-auto w-full max-w-lg bg-color3 rounded-xl p-10 border-2 border-color4`}>
         <div className="mb-2 flex justify-center">
             <span className="inline-block w-full max-w-[100px]">
                 <Logo width="100%" />
@@ -41,12 +41,12 @@ function LoginComp() {
             Don&apos;t have any account?&nbsp;
             <Link
                 to="/signup"
-                className="font-medium text-primary transition-all duration-200 hover:underline hover:text-color3"
+                className="font-medium text-primary transition-all duration-200 hover:underline hover:text-color1"
             >
                 Sign Up
             </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+        {error && <p className="text-red-700 mt-8 text-center font-semibold">{error}</p>}
         <form onSubmit={handleSubmit(login)} className='mt-8'>
             <div className='space-y-5'>
                 <Input

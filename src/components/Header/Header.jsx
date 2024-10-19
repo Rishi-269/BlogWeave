@@ -40,7 +40,7 @@ function Header() {
   ];
 
   return (
-    <header className='py-4 shadow bg-color1'>
+    <section className='py-4 shadow bg-color5'>
       <Container>
         <nav className='flex items-center justify-between'>
           <div className='mr-4'>
@@ -54,7 +54,7 @@ function Header() {
                 <li key={item.name}>
                   <button
                     onClick={() => navigate(item.url)}
-                    className='inline-block px-4 py-2 text-color2 bg-color4 hover:bg-color5 rounded-full transition duration-200'
+                    className='inline-block px-4 py-2 text-color5 bg-color2 hover:bg-color1 rounded-full transition duration-200'
                   >
                     {item.name}
                   </button>
@@ -69,7 +69,7 @@ function Header() {
           </ul>
         </nav>
       </Container>
-    </header>
+    </section>
   );
 }
 
