@@ -28,13 +28,13 @@ function Header() {
       active: !authStatus,
     },
     {
-      name: "Posts",
-      url: "/posts",
+      name: "Add Post",
+      url: "/add-post",
       active: authStatus,
     },
     {
-      name: "Add Post",
-      url: "/add-post",
+      name: "Profile",
+      url: "/profile",
       active: authStatus,
     }
   ];

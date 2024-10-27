@@ -22,8 +22,8 @@ export default function RTE({name, control, label, defaultValue =""}) {
             plugins: [
               'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount'
             ],
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+            toolbar: 'fontfamily fontsize align | forecolor backcolor | bold italic underline strikethrough | emoticons charmap | checklist numlist bullist indent outdent',
+            content_style: "body { font-family:Arial,sans-serif; font-size:14px }"
         }}
         onEditorChange={onChange}
         />

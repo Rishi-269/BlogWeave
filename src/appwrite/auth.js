@@ -51,6 +51,35 @@ export class AuthService{
             console.error("Authservice :: deleteSessions :: ", error);
         }
     }
+
+    async updateName(newName) {
+        try {
+            return await this.account.updateName(newName);
+        } catch (error) {
+            console.error("Authservice :: updateUserName :: ", error);
+            throw error;
+        }
+    }
+
+    async updateEmail(newEmail, password) {
+        try {
+            return await this.account.updateEmail(newEmail, password);
+        } catch (error) {
+            console.error("Authservice :: updateEmail :: ", error);
+            throw error;
+        }
+    }
+    
+    async resetPassword(newPassword, oldPassword) {
+        try {
+            return await this.account.updatePassword(newPassword, oldPassword)
+        } catch (error) {
+            console.error("Authservice :: resetPassword :: ", error);
+            throw error;
+        }
+
+    }
+
 }
 
 const authService = new AuthService();
