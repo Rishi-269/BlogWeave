@@ -89,7 +89,7 @@ function Profile() {
           </div>
           
           <div className="mb-4">
-            <p className="font-semibold text-xl"><span className="text-black font-bold">Total Posts: </span>{userPosts?.total || N/A}</p>
+            <p className="font-semibold text-xl"><span className="text-black font-bold">Total Posts: </span>{userPosts?.total || 'N/A'}</p>
           </div>
 
         </div>
