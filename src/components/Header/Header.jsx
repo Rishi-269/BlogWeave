@@ -28,6 +28,11 @@ function Header() {
       active: !authStatus,
     },
     {
+      name: "My Posts",
+      url: "/my-posts",
+      active: authStatus,
+    },
+    {
       name: "Add Post",
       url: "/add-post",
       active: authStatus,

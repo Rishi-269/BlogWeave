@@ -5,7 +5,7 @@ import './index.css'
 import { Provider } from "react-redux";
 import store from './store/store.js';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Home, Login, Signup, Profile, EditPost, AddPost, Post } from './pages';
+import { Home, Login, Signup, Profile, EditPost, AddPost, Post, MyPosts} from './pages';
 import { AuthLayout } from './components';
 
 const router = createBrowserRouter([{
@@ -42,6 +42,14 @@ const router = createBrowserRouter([{
       element: (
         <AuthLayout authentication>
           <AddPost />
+        </AuthLayout>
+      ),
+    },
+    {
+      path: "/my-posts",
+      element: (
+        <AuthLayout authentication>
+          <MyPosts />
         </AuthLayout>
       ),
     },

@@ -3,7 +3,8 @@ import Post from "./Post";
 import Profile from "./Profile";
 import EditPost from "./EditPost";
 import AddPost from "./AddPost";
+import MyPosts from "./MyPosts";
 import Login from "./Login";
 import Signup from "./Signup";
 
-export {Home, Post, Profile, EditPost, AddPost, Login, Signup};
+export {Home, Post, Profile, EditPost, AddPost, Login, Signup, MyPosts};

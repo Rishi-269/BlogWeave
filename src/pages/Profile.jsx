@@ -1,13 +1,16 @@
-import { useState } from 'react';
-import { Container, Input, Button } from '../components'; // Assuming you have these components
+import { useState, useEffect } from 'react';
+import { Container, Input, Button } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import authService from '../appwrite/auth';
-import { login as authLogin} from '../store/authSlice'
+import dbService from '../appwrite/db';
+import { login } from '../store/authSlice'
+import { Query } from 'appwrite';
 
 function Profile() {
   const userData = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+  const [userPosts, setUserPosts] = useState({})
   const [error, setError] = useState("")
   
   const { register, handleSubmit, formState } = useForm();
@@ -18,7 +21,7 @@ function Profile() {
           return;
 
       if((email || newPassword) && !oldPassword){
-        setError("Old Password is required to update Email or password")
+        setError("Current Password is required to update Email or Password")
         return;
       }
       try {
@@ -41,7 +44,7 @@ function Profile() {
           // Refresh user data after updates
           const updatedUserData = await authService.getCurrentUser();
           if (updatedUserData) {
-            dispatch(authLogin(updatedUserData));
+            dispatch(login(updatedUserData));
           }
 
       } catch (error) {
@@ -49,46 +52,53 @@ function Profile() {
       }
   };
 
+  async function getPostDetails(){
+    await dbService.getPosts([Query.equal('userId', userData.$id)]).then((posts) => setUserPosts(posts))
+  }
+
+  useEffect(() => {
+    getPostDetails();
+  }, [])
+
   return (
     <div className='w-full py-8'>
       <Container>
         <div className='flex flex-col md:flex-row bg-color3 text-color2 p-6 rounded-lg shadow-md max-w-4xl mx-auto gap-8'>
           
-          <div className='flex-1'>
-            <h2 className='text-2xl font-bold mb-4'>Profile</h2>
-            
-            <div className='mb-2'>
-              <p><strong>Name:</strong> {userData.name}</p>
-            </div>
-            
-            <div className='mb-2'>
-              <p><strong>Email:</strong> {userData.email}</p>
-            </div>
-            
-            <div className='mb-2'>
-              <p>
-                <strong>Joined On:</strong>{" "}
-                {userData?.$createdAt
-                  ? new Date(userData.$createdAt).toLocaleDateString("en-UK", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })
-                  : "N/A"}
-              </p>
-            </div>
-            
-            <div className='mb-2'>
-              <p><strong>No of Posts:</strong> N/A</p>
-            </div>
-
+        <div className="flex-1 p-6 bg-color5 rounded-lg shadow-sm">
+          <h2 className="text-3xl font-extrabold mb-6">Your Profile</h2>
+          
+          <div className="mb-4">
+            <p className="font-semibold text-xl"><span className="text-black font-bold">Name:</span> {userData.name}</p>
           </div>
+          
+          <div className="mb-4">
+            <p className="font-semibold text-xl"><span className="text-black font-bold">Email:</span> {userData.email}</p>
+          </div>
+          
+          <div className="mb-4">
+            <p className="font-semibold text-xl">
+              <span className="text-black font-bold">Joined On:</span> {userData?.$createdAt
+                ? new Date(userData.$createdAt).toLocaleDateString("en-UK", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })
+                : "N/A"}
+            </p>
+          </div>
+          
+          <div className="mb-4">
+            <p className="font-semibold text-xl"><span className="text-black font-bold">Total Posts: </span>{userPosts?.total || N/A}</p>
+          </div>
+
+        </div>
 
           {/* Right Side - Edit Form */}
           <div className='flex-1'>
             <h2 className='text-2xl font-bold mb-4'>Edit Profile</h2>
 
-            {error && <p className="text-red-700 mt-8 text-center font-semibold">{error}</p>}
+            {error && <p className="text-red-700 m-4 text-center font-semibold">{error}</p>}
             
             <form onSubmit={handleSubmit(UpdateProfile)} className='space-y-4'>
               <Input
@@ -119,7 +129,7 @@ function Profile() {
               {formState.errors.email && <p className="text-red-700 mt-8 text-center font-semibold">{formState.errors.email.message}</p>}
 
               <Input
-              label="Old Password: "
+              label="Current Password: "
               type="password"
               placeholder="Enter your password"
               className={formState.errors.oldPassword ? "border-b-4 border-b-red-600": ""}

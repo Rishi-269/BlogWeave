@@ -1,5 +1,6 @@
 import conf from "../conf/conf";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { nanoid } from "nanoid";
 
 export class DBService{
     client;
@@ -17,7 +18,7 @@ export class DBService{
             return await this.databases.createDocument(
                 conf.databaseId,
                 conf.collectionId,
-                slug,
+                slug + '--' + nanoid(4),
                 {
                     title,
                     content,
@@ -28,6 +29,7 @@ export class DBService{
             )
         } catch (error) {
             console.error("DBService :: createPost :: ", error);
+            return false
         }
     }
 
@@ -46,6 +48,7 @@ export class DBService{
             )
         } catch(error){
             console.error("DBService :: updatePost :: ", error);
+            return false
         }
     }
 
@@ -76,7 +79,7 @@ export class DBService{
         }
     }
 
-    async getPosts(queries = [Query.equal("status","active")]){
+    async getPosts(queries = [Query.equal("status","public")]){
         try{
             return await this.databases.listDocuments(
                 conf.databaseId, 
